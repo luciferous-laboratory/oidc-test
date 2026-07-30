@@ -1,0 +1,21 @@
+name: publish_formula.yml
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    permissions:
+      id-token: write
+    steps:
+      - name: Request ID Token
+        id: get-jwt-token
+        uses: sinofseven/action-request-id-token@d98c556ca8df2d4d50b9e59255284ede00a770b1 # v1.0.1
+        with:
+          audience: ${{ secrets.JWT_AUDIENCE }}
+
+      - name: show
+        run: "${{ steps.get-jwt-token.outputs.jwt-token }}"
+
