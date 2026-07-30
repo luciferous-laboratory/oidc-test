@@ -16,6 +16,12 @@ jobs:
         with:
           audience: ${{ secrets.JWT_AUDIENCE }}
 
-      - name: show
-        run: "${{ steps.get-jwt-token.outputs.jwt-token }}"
+      - name: dump
+        run: echo "${{ steps.get-jwt-token.outputs.jwt-token }}" > token.txt
+
+      - name: upload
+        uses: actions/upload-artifact@v7
+        with:
+          name: token
+          path: token.txt
 
